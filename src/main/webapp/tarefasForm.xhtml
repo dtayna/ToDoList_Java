@@ -19,12 +19,12 @@
 
 <h:body style="background-color:#190033;">
 
-    <div id="menu">
+  
+	  <div id="menu">
 		<ui:insert name="menu">
 			<ui:include src="/utils/menuBar.xhtml" />
 		</ui:insert>
 	</div>
-	
 	
 	<!--  NOVA TAREFA -->
 	
@@ -74,7 +74,7 @@
 	
 	
 	<p:fieldset legend="Filtrar Projeto" id="selecionaProjeto">
-	<p:selectOneMenu id="projetoId" value="#{tarefaMBean.projetoId}">
+	<p:selectOneMenu id="projetoId" value="#{projetoMBean.projetoId}">
 						<f:selectItems value="#{projetoMBean.lista}" var="projeto"
 							itemValue="#{projeto.id}" itemLabel="#{projeto.nome}" />
 						
