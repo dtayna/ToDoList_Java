@@ -31,6 +31,7 @@ public class TarefaMBean implements Serializable {
 	private Tarefa tarefa = new Tarefa();
 	private Responsavel responsavel = new Responsavel();
 	private Projeto projeto = new Projeto();
+	private Projeto projetof = new Projeto();
 	
 	private Integer projetoId = null;
 	private Integer responsavelId = null;
@@ -38,6 +39,50 @@ public class TarefaMBean implements Serializable {
 	private TarefaDAO tarefaDAO = new TarefaDAO();
 	private ProjetoDAO projetoDAO = new ProjetoDAO();
 	private ResponsavelDAO responsavelDAO = new ResponsavelDAO();
+	
+	private Boolean filtro = false;
+	private Integer projetofiltro = null;
+	
+	public Projeto getProjetof() {
+		return projetof;
+	}
+
+	public void setProjetof(Projeto projetof) {
+		this.projetof = projetof;
+	}
+
+	public Boolean getFiltro() {
+		return filtro;
+	}
+
+	public void setFiltro(Boolean filtro) {
+		this.filtro = filtro;
+	}
+
+	public Integer getProjetofiltro() {
+		return projetofiltro;
+	}
+
+	public void setProjetofiltro(Integer projetofiltro) {
+		this.projetofiltro = projetofiltro;
+	}
+
+	public void ativafiltro() throws ProjetoU2Exception {
+	
+		this.filtro = true;
+		System.out.println("Ativou:" +filtro);
+	}
+	
+	public void desativafiltro() throws ProjetoU2Exception {
+		this.filtro = false;
+		System.out.println("Desativou:" +filtro);
+	}
+	
+	public void atualizaProjetoFiltro(AjaxBehaviorEvent e) throws ProjetoU2Exception {
+		
+		this.projetof = projetoDAO.buscarId(projetofiltro);
+		System.out.println("Vai atualizar filtro" + projetof.getId());
+	}
 	
 	public Integer getProjetoId() {
 		return projetoId;
@@ -148,12 +193,27 @@ public class TarefaMBean implements Serializable {
 	//}
 	
 	public List<Tarefa> listaTarefasPendentes() throws ProjetoU2Exception {
-		List<Tarefa> tarefasPendentes = new ArrayList<Tarefa>();
 		
-		for (Tarefa t : tarefaDAO.listar()) {
-			if (t.getFinalizado() != true) {
-				tarefasPendentes.add(t);
+		List<Tarefa> tarefasPendentes = new ArrayList<Tarefa>();
+		if (this.filtro == false) {
+			for (Tarefa t : tarefaDAO.listar()) {
+				if (t.getFinalizado() != true) {
+					tarefasPendentes.add(t);
+				}
 			}
+		}else {
+			System.out.println("tô listando certo");
+			for (Tarefa t : tarefaDAO.listar()) {
+				if(projetofiltro != null && t.getProjeto() != null) {
+					System.out.println("oioi");
+					
+					if (t.getFinalizado() != true && projetofiltro == t.getProjeto().getId() ) {
+						tarefasPendentes.add(t);
+					}
+				}
+				
+			}
+			
 		}
 		
 		return tarefasPendentes;
@@ -161,10 +221,23 @@ public class TarefaMBean implements Serializable {
 	
 	public List<Tarefa> listaTarefasConcluidas() throws ProjetoU2Exception {
 		List<Tarefa> tarefasFinalizadas = new ArrayList<Tarefa>();
-		
+		if (this.filtro == false) {
 		for (Tarefa t : tarefaDAO.listar()) {
 			if (t.getFinalizado() == true) {
 				tarefasFinalizadas.add(t);
+			}
+		}
+		}else {
+			System.out.println("tô listando certo");
+			for (Tarefa t : tarefaDAO.listar()) {
+				if(projetofiltro != null && t.getProjeto() != null) {
+					System.out.println("oioi");
+					
+					if (t.getFinalizado() == true && projetofiltro == t.getProjeto().getId() ) {
+						tarefasFinalizadas.add(t);
+					}
+				}
+				
 			}
 		}
 		

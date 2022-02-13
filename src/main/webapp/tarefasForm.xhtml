@@ -91,8 +91,8 @@
 	
 	<p:fieldset legend="Filtrar Projeto" id="selecionaProjeto">
 	<h:form id="formFiltro">
-	<p:selectOneMenu id="projetoFiltro" value="#{projetoMBean.projetoId}">
-				<p:ajax event="change" listener="#{projetoMBean.atualizaProjeto}"
+	<p:selectOneMenu id="projetoFiltro" value="#{tarefaMBean.projetofiltro}">
+				<p:ajax event="change" listener="#{tarefaMBean.atualizaProjetoFiltro}"
 						 />
 					<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
 					<f:selectItems value="#{projetoMBean.lista}" var="projeto"
@@ -100,8 +100,8 @@
 						
 				</p:selectOneMenu>
 				<br> </br>
-    <p:commandButton value="Aplicar Filtro" style="margin-left:.5rem;" styleClass="ui-button-success"/>
-    <p:commandButton value="Retirar Filtro" styleClass="ui-button-secondary"/>
+    <p:commandButton update="formTabelaTarefasPendentes formTabelaTarefasFeitas" action="#{tarefaMBean.ativafiltro}"  value="Aplicar Filtro" style="margin-left:.5rem;" styleClass="ui-button-success"/>
+    <p:commandButton  update="formTabelaTarefasPendentes formTabelaTarefasFeitas"  action="#{tarefaMBean.desativafiltro}" value="Retirar Filtro" styleClass="ui-button-secondary"/>
     </h:form>
     </p:fieldset>
 	
