@@ -14,6 +14,7 @@
 			margin-left: .5rem;
 			float: left;
 			margin-top: .5rem;
+			height: 35px;
 		}
 		.dadosTarefa {
 			
@@ -123,43 +124,46 @@
 	
 	
 	<br></br>
-	<p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
-	
+	<p:fieldset legend="Tarefas Pendentes" id="TarefasPendentes">
 		<h:form id="formTabelaTarefasPendentes">
-        <p:dataScroller value="#{tarefaMBean.lista}" var="product" chunkSize="10" mode="inline" 
-        scrollHeight="500">
-        
-        	<f:facet name="header">
-               Tarefas Pendentes
-            </f:facet>
+       <p:dataTable value="#{tarefaMBean.lista}" var="tarefa"
+				id="tabelaTarefa">
+				<p:column headerText="Projeto">
+					<h:outputText value="#{tarefa.projeto.nome}" />
+				</p:column>
+				
+				<p:column headerText="Descrição">
+					<h:outputText value="#{tarefa.descricao}" />
+				</p:column>
 
-               <div class="tarefaItem">
-                <div class="product-list-item p-p-5">
-                    <div class="product-list-detail">
-                        <div class="product-name">#{tarefa.descricao}</div>
-                        <div class="product-description">#{tarefa.responsavel}</div>
-                         <div class="product-description">#{tarefa.prazo}</div>
-                    </div>
-                    <div class="product-list-action">
-                        <p:commandButton value="Editar" icon="pi pi-pencil"
+				<p:column headerText="Responsável">
+					<h:outputText value="#{tarefa.responsavel.nome}" />
+				</p:column>
+				
+				<p:column headerText="E-mail">
+					<h:outputText value="#{tarefa.prazo}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton value="" icon="pi pi-pencil"
 						action="#{tarefaMBean.editar(tarefa)}" update="formCadastroTarefa"/>
-					<p:commandButton value="Excluir" icon="pi pi-times"
+					<p:commandButton value="" icon="pi pi-times"
 						action="#{tarefaMBean.apagar(tarefa)}"
 						styleClass="ui-button-danger" update="formTabelaTarefasPendentes" />
-                    </div>
-                </div>
-            </div>
-		
-		</p:dataScroller>
+
+				</p:column>
+			</p:dataTable>
+       
 		</h:form>
+		</p:fieldset>
 		
+		<br></br>
 		<p:fieldset legend="Tarefas Feitas" id="TarefasFeitas">
 		<h:form id="formTabelaTarefasFeitas">
 		
 		</h:form>
 		</p:fieldset>
 	
-	</p:panelGrid>
 	</div>
 	
 </h:body>
