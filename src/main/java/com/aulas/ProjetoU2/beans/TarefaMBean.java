@@ -83,11 +83,29 @@ public class TarefaMBean implements Serializable {
 		this.tarefaDAO = tarefaDAO;
 	}
 	public void gravar() throws ProjetoU2Exception {
+		for (Responsavel r : responsavelDAO.listar()) {
+			if (r.getId() == responsavelId) {
+				this.tarefa.setResponsavel(r);
+				break;
+			}
+		}
+
+//		for (Projeto p : projetoDAO.listar()) {
+//			if (p.getId() == projetoId) {
+//				this.tarefa.setProjeto(p);
+//				break;
+//			}
+//		}
+		tarefa.setUsuario(SessionMBean.getSession());
+
 		if(this.tarefa.getId() == null) {
 			tarefaDAO.salvar(tarefa);
 		} else {
 			tarefaDAO.atualizar(tarefa);
 		}
+		
+		projetoId = null;
+		responsavelId = null;
 		tarefa = new Tarefa();
 	}
 	public void editar(Tarefa tarefa) {

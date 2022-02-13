@@ -37,16 +37,14 @@ public class UsuarioMBean implements Serializable{
 	}
 		
 		
-	public void gravar() throws ProjetoU2Exception {
-		System.out.println("email: "+usuario.getEmail());
-		System.out.println("email: "+usuario.getNome());
-		System.out.println("email: "+usuario.getSenha());
+	public String gravar() throws ProjetoU2Exception {
 		if(this.usuario.getId() == null) {
 			usuarioDAO.salvar(this.usuario);
 		} else {
 			usuarioDAO.atualizar(this.usuario);
 		}
 		usuario = new Usuario();
+		return "login"; 
 	}
 	
 	public String logar() throws ProjetoU2Exception {

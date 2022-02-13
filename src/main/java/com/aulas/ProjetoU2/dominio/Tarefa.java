@@ -36,7 +36,7 @@ public class Tarefa implements Serializable{
 		private Integer id;
 		
 		@OneToOne
-		@JoinColumn(name = "email_usuario")
+		@JoinColumn(name = "id_usuario")
 		private Usuario usuario;
 		
 		@OneToOne
