@@ -109,7 +109,8 @@ public class TarefaMBean implements Serializable {
 		responsavelId = null;
 		tarefa = new Tarefa();
 	}
-	public void editar(Tarefa tarefa) {
+	public void editar(Tarefa tarefa) throws ProjetoU2Exception {
+		atualizaEditar(tarefa);
 		this.tarefa = tarefa;
 	}
 	
@@ -178,5 +179,11 @@ public class TarefaMBean implements Serializable {
 		}
 		this.setTarefa(tarefa);
 		this.tarefaDAO.atualizar(this.tarefa);
+	}
+	
+	public void atualizaEditar(Tarefa tarefa) throws ProjetoU2Exception {
+		projetoId = tarefa.getProjeto().getId();
+		responsavelId = tarefa.getResponsavel().getId();
+		
 	}
 }
