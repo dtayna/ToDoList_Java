@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+	<title>Tarefas</title>
+	<style type="text/css">
+		button.ui-button {
+			margin-right: .5rem;
+		}
+	</style>
+</h:head>
+
+
+<h:body style="background-color:#190033;">
+
+    <div id="menu">
+		<ui:insert name="menu">
+			<ui:include src="/utils/menuBar.xhtml" />
+		</ui:insert>
+	</div>
+	
+	
+	<!--  NOVA TAREFA -->
+	
+	<div class="card" style="width:80%; margin-left:10%;">
+			<p:messages id="msgs"/>
+			
+			<h:form id="formCadastroTarefa">
+			<p:fieldset legend="Tarefa" id="dadosTarefa">
+				<p:outputLabel value="Descrição: " for="descricaoTarefa"></p:outputLabel>
+				<p:inputText id="descricaoTarefa" maxlength="40" placeholder="Inserir nome"
+				value="#{tarefaMBean.tarefa.descricao}" required="true" requiredMessage="Informe a descrição da tarefa!">
+					<p:ajax event="blur" update="descricaoTarefa msgs" />
+					<f:validateLength minimum="1" maximum="40" />
+				</p:inputText>
+				
+				<p:outputLabel for="prazoTarefa" value="Prazo: " />
+					<p:datePicker id="prazoTarefa" value="#{tarefaMBean.tarefa.prazo}" required="true" requiredMessage="Informe o prazo para a tarefa!">
+						<f:convertDateTime dateStyle="default" pattern="dd/MM/yyyy" />
+						<p:ajax event="blur" update="prazoTarefa msgs" />
+					</p:datePicker>
+					
+				<p:outputLabel for="responsavelTarefa" value="Responsável: "/>
+				<p:selectOneMenu id="responsavelTarefa" value="#{tarefaMBean.responsavelId}">
+					<f:selectItems value="#{responsavelMBean.lista}" var="responsavel"
+						itemValue="#{responsavel.id}" itemLabel="#{responsavel.nome}" />
+						<p:ajax event="change" listener="#{tarefaMBean.atualizaResponsavel}"
+						 />
+				</p:selectOneMenu>
+				
+				<p:outputLabel for="projetoTarefa" value="Projeto: "/>
+				<p:selectOneMenu id="projetoTarefa" value="#{tarefaMBean.projetoId}">
+					<f:selectItems value="#{projetoMBean.lista}" var="projeto"
+						itemValue="#{projeto.id}" itemLabel="#{projeto.nome}" />
+						<p:ajax event="change" listener="#{tarefaMBean.atualizaProjeto}"
+						 />
+				</p:selectOneMenu>
+			</p:fieldset>
+			</h:form>
+		
+	</div>
+	
+	<br>
+	</br>
+	
+	<div class="card" style="width:80%; margin-left:10%;">
+	<p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
+	
+	
+	<p:fieldset legend="Filtrar Projeto" id="selecionaProjeto">
+	<p:selectOneMenu id="projetoId" value="#{tarefaMBean.projetoId}">
+						<f:selectItems value="#{projetoMBean.lista}" var="projeto"
+							itemValue="#{projeto.id}" itemLabel="#{projeto.nome}" />
+						
+						<p:ajax event="change" listener="#{tarefaMBean.atualizaProjeto}" />
+					
+			
+    </p:selectOneMenu>
+    <p:commandButton value="Aplicar Filtro" style="margin-left:.5rem;" styleClass="ui-button-success"/>
+    <p:commandButton value="Retirar Filtro" styleClass="ui-button-secondary"/>
+    
+    </p:fieldset>
+	
+	<h:form id="formCadastroProjeto">
+			<p:fieldset legend="Novo Projeto" id="dadosProjeto">
+			
+			<p:outputLabel value="Nome do Projeto: " for="nome"/>
+					<p:inputText id="nome" maxlength="40"  placeholder="Inserir nome"
+					value="#{projetoMBean.projeto.nome}"
+					required="true" requiredMessage="Informe o nome do projeto!">
+						<p:ajax event="blur" update="nome msgs"/>
+						 <f:validateLength minimum="1" maximum="40" />
+					</p:inputText>
+					<!--  <p:message for="nome" id="msgNome"/>-->
+					
+		<p:commandButton action="#{projetoMBean.gravar}" value="Gravar"
+			icon="pi pi-plus" update="selecionaProjeto msgs formCadastroProjeto" styleClass="ui-button-success"/>
+			
+			
+			</p:fieldset>
+			</h:form>
+	</p:panelGrid>
+	
+	
+	<br></br>
+	<p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
+	
+		<p:fieldset legend="Tarefas Pendentes" id="TarefasPendentes">
+		<h:form id="formTabelaTarefasPendentes">
+		
+		</h:form>
+		</p:fieldset>
+		
+		<p:fieldset legend="Tarefas Feitas" id="TarefasFeitas">
+		<h:form id="formTabelaTarefasFeitas">
+		
+		</h:form>
+		</p:fieldset>
+	
+	</p:panelGrid>
+	</div>
+	
+</h:body>
+</html>

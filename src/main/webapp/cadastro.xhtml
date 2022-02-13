@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Cadastro</title>
+	<style type="text/css">
+	
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color:#190033;
+	padding-top: 20px;
+}
+
+.card-cadastro {
+	width: 35%;
+	background-color: white;
+}
+
+.p-field {
+	margin-top: 15px;
+	margin-bottom: 20px;
+}
+
+.ui-fluid {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+button {
+	width: 30%;
+}
+
+.footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+</style>
+</h:head>
+
+<p:card class="card-cadastro">
+	<f:facet name="title">
+		<h3>Cadastre uma nova conta</h3>
+	</f:facet>
+	<h:form>
+		<div class="ui-fluid">
+			<div class="p-field">
+				<span class="ui-float-label"> 
+				<p:inputText value="#{usuarioMBean.usuario.nome}" required="true" /> <p:outputLabel
+						for="@previous" value="Nome" />
+				</span>
+			</div>
+			<div class="p-field">
+				<span class="ui-float-label"> <p:password 
+						value="#{usuarioMBean.usuario.senha}" match="pswd" required="true" />
+					<p:outputLabel for="@previous" value="Senha" />
+				</span>
+			</div>
+			<div class="p-field">
+				<span class="ui-float-label"> <p:password id="pswd" 
+						value="#{usuarioMBean.usuario.senha}" required="true" /> <p:outputLabel
+						for="@previous" value="Repita a senha" />
+				</span>
+			</div>
+			<div class="p-field">
+				<span class="ui-float-label"> <p:inputText 
+						value="#{usuarioMBean.usuario.email}" required="true" /> <p:outputLabel
+						for="@previous" value="Email" />
+				</span>
+			</div>
+			<div class="p-field"> 
+				<span class="ui-float-label"> <p:inputText 
+						value="#{usuarioMBean.usuario.telefone}" required="true" /> <p:outputLabel
+						for="@previous" value="Telefone" />
+				</span>
+			</div>
+
+		</div>
+	</h:form>
+	<f:facet name="footer">
+		<div class="footer">
+			<p:link outcome="login" value="Já fez o cadastro?" />
+
+			<p:commandButton action="#{usuarioMBean.gravar}" value="Cadastrar"
+				icon="pi pi-check" iconPos="right" />
+
+		</div>
+	</f:facet>
+</p:card>
+</html>

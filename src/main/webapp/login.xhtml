@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Login</title>
+	<style type="text/css">
+	
+.body {
+	padding-top: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+
+.card-login {
+	width: 35%;
+	background-color: white;
+}
+
+.p-field {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.ui-fluid {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+button {
+	width: 30%;
+}
+
+.footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+</style>
+</h:head>
+
+<h:body style="background-color:#190033;">
+ 
+<div class="body">
+	<p:card class="card-login">
+		<f:facet name="title">
+			<h3>Login</h3>
+		</f:facet>
+
+		<h:form class="form-login">
+			<div class="ui-fluid">
+				<div class="p-field">
+					<span class="ui-float-label"> <p:inputText
+							value="#{usuarioMBean.usuario.email}" required="true" /> <p:outputLabel
+							for="@previous" value="Email" />
+					</span>
+				</div>
+				<div class="p-field">
+					<span class="ui-float-label"> <p:password
+							value="#{usuarioMBean.usuario.senha}" required="true" /> <p:outputLabel
+							for="@previous" value="Senha" />
+					</span>
+				</div>
+
+			</div>
+		</h:form>
+		<f:facet name="footer">
+			<div class="footer">
+				<p:link outcome="cadastro" value="Ainda não possui uma conta?" />
+				<p:commandButton action="#{usuarioMBean.logar}" value="Logar"
+					icon="pi pi-check" iconPos="right" />
+			</div>
+		</f:facet>
+	</p:card>
+</div>
+</h:body>
+</html>
