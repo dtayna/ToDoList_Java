@@ -36,7 +36,7 @@
 	
 	<!--  NOVA TAREFA -->
 	
-	<div class="card" style="width:90%; margin-left: 5%">
+	<div class="card" style="width:80%; margin-left: 10%">
 			<p:messages id="msgs"/>
 			
 			<h:form id="formCadastroTarefa">
@@ -53,7 +53,8 @@
 					<p:datePicker id="prazoTarefa" value="#{tarefaMBean.tarefa.prazo}" required="true" requiredMessage="Informe o prazo para a tarefa!">
 						<f:convertDateTime dateStyle="default" pattern="dd/MM/yyyy" />
 					</p:datePicker>
-					
+					<br></br>
+					<br></br>
 				<p:outputLabel for="responsavelTarefa" value="Responsável: "/>
 				<p:selectOneMenu id="responsavelTarefa" value="#{tarefaMBean.responsavelId}" required="true">
 					<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
@@ -89,14 +90,16 @@
 	
 	
 	<p:fieldset legend="Filtrar Projeto" id="selecionaProjeto">
-	<p:selectOneMenu id="projetoId" value="#{projetoMBean.projetoId}">
-						<f:selectItems value="#{projetoMBean.lista}" var="projeto"
-							itemValue="#{projeto.id}" itemLabel="#{projeto.nome}" />
+	
+	<p:selectOneMenu id="projetoFiltro" value="#{projetoMBean.projetoId}">
+				<p:ajax event="change" listener="#{projetoMBean.atualizaProjeto}"
+						 />
+					<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
+					<f:selectItems value="#{projetoMBean.lista}" var="projeto"
+						itemValue="#{projeto.id}" itemLabel="#{projeto.nome}" />
 						
-						<p:ajax event="change" listener="#{tarefaMBean.atualizaProjeto}" />
-					
-			
-    </p:selectOneMenu>
+				</p:selectOneMenu>
+				<br> </br>
     <p:commandButton value="Aplicar Filtro" style="margin-left:.5rem;" styleClass="ui-button-success"/>
     <p:commandButton value="Retirar Filtro" styleClass="ui-button-secondary"/>
     
@@ -146,10 +149,18 @@
 
 				<p:column headerText="Opções">
 					<p:commandButton value="" icon="pi pi-pencil"
-						action="#{tarefaMBean.editar(tarefa)}" update="formCadastroTarefa"/>
+						styleClass="rounded-button ui-button-flat" action="#{tarefaMBean.editar(tarefa)}" update="formCadastroTarefa"/>
 					<p:commandButton value="" icon="pi pi-times"
 						action="#{tarefaMBean.apagar(tarefa)}"
-						styleClass="ui-button-danger" update="formTabelaTarefasPendentes" />
+						styleClass="rounded-button ui-button-flat ui-button-danger" update="formTabelaTarefasPendentes" />
+					<p:commandButton value="" icon="pi pi-check-square"
+						action="#{tarefaMBean.apagar(tarefa)}"
+						styleClass="rounded-button ui-button-flat ui-button-success" update="formTabelaTarefasPendentes" />
+					<p:commandButton value="" icon="pi pi-book"
+						action="#{tarefaMBean.apagar(tarefa)}"
+						styleClass="rounded-button ui-button-flat ui-button-warning" update="formTabelaTarefasPendentes" />
+						
+
 
 				</p:column>
 			</p:dataTable>
@@ -160,7 +171,37 @@
 		<br></br>
 		<p:fieldset legend="Tarefas Feitas" id="TarefasFeitas">
 		<h:form id="formTabelaTarefasFeitas">
-		
+		 <p:dataTable value="#{tarefaMBean.lista}" var="tarefa"
+				id="tabelaTarefa">
+				<p:column headerText="Projeto">
+					<h:outputText value="#{tarefa.projeto.nome}" />
+				</p:column>
+				
+				<p:column headerText="Descrição">
+					<h:outputText value="#{tarefa.descricao}" />
+				</p:column>
+
+				<p:column headerText="Responsável">
+					<h:outputText value="#{tarefa.responsavel.nome}" />
+				</p:column>
+				
+				<p:column headerText="E-mail">
+					<h:outputText value="#{tarefa.prazo}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton value="" icon="pi pi-check-square"
+						action="#{tarefaMBean.apagar(tarefa)}"
+						styleClass="rounded-button ui-button-flat ui-button-secondary" update="formTabelaTarefasFeitas" />
+					<p:commandButton value="" icon="pi pi-book"
+						action="#{tarefaMBean.apagar(tarefa)}"
+						styleClass="rounded-button ui-button-flat ui-button-warning" update="formTabelaTarefasFeitas" />
+						
+
+
+				</p:column>
+			</p:dataTable>
+       
 		</h:form>
 		</p:fieldset>
 	

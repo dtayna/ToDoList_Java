@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import com.aulas.ProjetoU2.dao.ProjetoDAO;
 import com.aulas.ProjetoU2.dominio.Projeto;
@@ -61,6 +62,12 @@ public class ProjetoMBean implements Serializable{
 			projetoDAO.atualizar(this.projeto);
 		}
 		projeto = new Projeto();
+	}
+	
+	public void atualizaProjeto(AjaxBehaviorEvent e) throws ProjetoU2Exception {
+		this.projeto = projetoDAO.buscarId(projetoId);
+		System.out.println(projetoId);
+		System.out.println(this.getProjeto());
 	}
 	
 	
