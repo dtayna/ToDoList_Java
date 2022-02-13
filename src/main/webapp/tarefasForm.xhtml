@@ -90,7 +90,7 @@
 	
 	
 	<p:fieldset legend="Filtrar Projeto" id="selecionaProjeto">
-	
+	<h:form id="formFiltro">
 	<p:selectOneMenu id="projetoFiltro" value="#{projetoMBean.projetoId}">
 				<p:ajax event="change" listener="#{projetoMBean.atualizaProjeto}"
 						 />
@@ -102,7 +102,7 @@
 				<br> </br>
     <p:commandButton value="Aplicar Filtro" style="margin-left:.5rem;" styleClass="ui-button-success"/>
     <p:commandButton value="Retirar Filtro" styleClass="ui-button-secondary"/>
-    
+    </h:form>
     </p:fieldset>
 	
 	<h:form id="formCadastroProjeto">
@@ -129,7 +129,7 @@
 	<br></br>
 	<p:fieldset legend="Tarefas Pendentes" id="TarefasPendentes">
 		<h:form id="formTabelaTarefasPendentes">
-       <p:dataTable value="#{tarefaMBean.lista}" var="tarefa"
+       <p:dataTable value="#{tarefaMBean.listaTarefasPendentes()}" var="tarefa"
 				id="tabelaTarefa">
 				<p:column headerText="Projeto">
 					<h:outputText value="#{tarefa.projeto.nome}" />
@@ -154,11 +154,11 @@
 						action="#{tarefaMBean.apagar(tarefa)}"
 						styleClass="rounded-button ui-button-flat ui-button-danger" update="formTabelaTarefasPendentes" />
 					<p:commandButton value="" icon="pi pi-check-square"
-						action="#{tarefaMBean.apagar(tarefa)}"
-						styleClass="rounded-button ui-button-flat ui-button-success" update="formTabelaTarefasPendentes" />
+						action="#{tarefaMBean.concluiTarefa(tarefa)}"
+						styleClass="rounded-button ui-button-flat ui-button-success" update="formTabelaTarefasFeitas formTabelaTarefasPendentes" />
 					<p:commandButton value="" icon="pi pi-book"
 						action="#{tarefaMBean.apagar(tarefa)}"
-						styleClass="rounded-button ui-button-flat ui-button-warning" update="formTabelaTarefasPendentes" />
+						styleClass="rounded-button ui-button-flat ui-button-warning" />
 						
 
 
@@ -171,7 +171,7 @@
 		<br></br>
 		<p:fieldset legend="Tarefas Feitas" id="TarefasFeitas">
 		<h:form id="formTabelaTarefasFeitas">
-		 <p:dataTable value="#{tarefaMBean.lista}" var="tarefa"
+		 <p:dataTable value="#{tarefaMBean.listaTarefasConcluidas()}" var="tarefa"
 				id="tabelaTarefa">
 				<p:column headerText="Projeto">
 					<h:outputText value="#{tarefa.projeto.nome}" />
@@ -191,11 +191,11 @@
 
 				<p:column headerText="Opções">
 					<p:commandButton value="" icon="pi pi-check-square"
-						action="#{tarefaMBean.apagar(tarefa)}"
-						styleClass="rounded-button ui-button-flat ui-button-secondary" update="formTabelaTarefasFeitas" />
+						action="#{tarefaMBean.concluiTarefa(tarefa)}"
+						styleClass="rounded-button ui-button-flat ui-button-secondary" update="formTabelaTarefasFeitas formTabelaTarefasPendentes" />
 					<p:commandButton value="" icon="pi pi-book"
 						action="#{tarefaMBean.apagar(tarefa)}"
-						styleClass="rounded-button ui-button-flat ui-button-warning" update="formTabelaTarefasFeitas" />
+						styleClass="rounded-button ui-button-flat ui-button-warning" />
 						
 
 

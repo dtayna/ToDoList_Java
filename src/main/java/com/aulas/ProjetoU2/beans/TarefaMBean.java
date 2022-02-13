@@ -150,7 +150,7 @@ public class TarefaMBean implements Serializable {
 		List<Tarefa> tarefasPendentes = new ArrayList<Tarefa>();
 		
 		for (Tarefa t : tarefaDAO.listar()) {
-			if (t.getFinalizado() == false) {
+			if (t.getFinalizado() != true) {
 				tarefasPendentes.add(t);
 			}
 		}
@@ -162,7 +162,7 @@ public class TarefaMBean implements Serializable {
 		List<Tarefa> tarefasFinalizadas = new ArrayList<Tarefa>();
 		
 		for (Tarefa t : tarefaDAO.listar()) {
-			if (t.getFinalizado() == false) {
+			if (t.getFinalizado() == true) {
 				tarefasFinalizadas.add(t);
 			}
 		}
