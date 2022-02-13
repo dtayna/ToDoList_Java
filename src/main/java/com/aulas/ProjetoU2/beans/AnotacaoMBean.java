@@ -44,6 +44,7 @@ public class AnotacaoMBean implements Serializable {
 		
 		public void gravar() throws ProjetoU2Exception {
 			anotacao.setData(this.date);
+			System.out.println("data " +date);
 			if(this.anotacao.getId() == null) {
 				anotacaoDAO.salvar(this.anotacao);
 			} else {
