@@ -1,6 +1,7 @@
 package com.aulas.ProjetoU2.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -98,6 +99,7 @@ public class TarefaMBean implements Serializable {
 		tarefa.setUsuario(SessionMBean.getSession());
 
 		if(this.tarefa.getId() == null) {
+			this.tarefa.setFinalizado(false);
 			tarefaDAO.salvar(tarefa);
 		} else {
 			tarefaDAO.atualizar(tarefa);
@@ -119,8 +121,6 @@ public class TarefaMBean implements Serializable {
 	}
 	public void atualizaProjeto(AjaxBehaviorEvent e) throws ProjetoU2Exception {
 		this.projeto = projetoDAO.buscarId(projetoId);
-		System.out.println(projetoId);
-		System.out.println(this.getProjeto());
 	}
 	public Integer getResponsavelId() {
 		return responsavelId;
@@ -136,7 +136,6 @@ public class TarefaMBean implements Serializable {
 	}
 	public void atualizaResponsavel(AjaxBehaviorEvent e) throws ProjetoU2Exception {
 		this.responsavel = responsavelDAO.buscarId(responsavelId);
-		System.out.println(this.getResponsavel());
 	}
 	
 	public List<Projeto> getListaClientes() throws ProjetoU2Exception {
@@ -147,5 +146,37 @@ public class TarefaMBean implements Serializable {
 		//this.projetoId = this.tarefa.getProjeto().getId();
 	//}
 	
+	public List<Tarefa> listaTarefasPendentes() throws ProjetoU2Exception {
+		List<Tarefa> tarefasPendentes = new ArrayList<Tarefa>();
+		
+		for (Tarefa t : tarefaDAO.listar()) {
+			if (t.getFinalizado() == false) {
+				tarefasPendentes.add(t);
+			}
+		}
+		
+		return tarefasPendentes;
+	}
 	
+	public List<Tarefa> listaTarefasConcluidas() throws ProjetoU2Exception {
+		List<Tarefa> tarefasFinalizadas = new ArrayList<Tarefa>();
+		
+		for (Tarefa t : tarefaDAO.listar()) {
+			if (t.getFinalizado() == false) {
+				tarefasFinalizadas.add(t);
+			}
+		}
+		
+		return tarefasFinalizadas;
+	}
+	
+	public void concluiTarefa(Tarefa tarefa) throws ProjetoU2Exception {
+		if ( tarefa.getFinalizado() == true ) {
+			tarefa.setFinalizado(false);			
+		} else {
+			tarefa.setFinalizado(true);
+		}
+		this.setTarefa(tarefa);
+		this.tarefaDAO.atualizar(this.tarefa);
+	}
 }
