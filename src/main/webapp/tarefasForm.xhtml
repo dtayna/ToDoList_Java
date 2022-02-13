@@ -13,6 +13,11 @@
 		button.ui-button {
 			margin-right: .5rem;
 		}
+		.dadosTarefa {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
 	</style>
 </h:head>
 
@@ -28,11 +33,12 @@
 	
 	<!--  NOVA TAREFA -->
 	
-	<div class="card" style="width:80%; margin-left:10%;">
+	<div class="card" style="width:90%; margin-left: 5%">
 			<p:messages id="msgs"/>
 			
 			<h:form id="formCadastroTarefa">
 			<p:fieldset legend="Tarefa" id="dadosTarefa">
+				<div class="dadosTarefa">
 				<p:outputLabel value="Descrição: " for="descricaoTarefa"></p:outputLabel>
 				<p:inputText id="descricaoTarefa" maxlength="40" placeholder="Inserir nome"
 				value="#{tarefaMBean.tarefa.descricao}" required="true" requiredMessage="Informe a descrição da tarefa!">
@@ -43,11 +49,11 @@
 				<p:outputLabel for="prazoTarefa" value="Prazo: " />
 					<p:datePicker id="prazoTarefa" value="#{tarefaMBean.tarefa.prazo}" required="true" requiredMessage="Informe o prazo para a tarefa!">
 						<f:convertDateTime dateStyle="default" pattern="dd/MM/yyyy" />
-						<p:ajax event="blur" update="prazoTarefa msgs" />
 					</p:datePicker>
 					
 				<p:outputLabel for="responsavelTarefa" value="Responsável: "/>
-				<p:selectOneMenu id="responsavelTarefa" value="#{tarefaMBean.responsavelId}">
+				<p:selectOneMenu id="responsavelTarefa" value="#{tarefaMBean.responsavelId}" required="true">
+					<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
 					<f:selectItems value="#{responsavelMBean.lista}" var="responsavel"
 						itemValue="#{responsavel.id}" itemLabel="#{responsavel.nome}" />
 						<p:ajax event="change" listener="#{tarefaMBean.atualizaResponsavel}"
@@ -55,12 +61,17 @@
 				</p:selectOneMenu>
 				
 				<p:outputLabel for="projetoTarefa" value="Projeto: "/>
-				<p:selectOneMenu id="projetoTarefa" value="#{tarefaMBean.projetoId}">
+				<p:selectOneMenu id="projetoTarefa" value="#{tarefaMBean.projetoId}" required="true">
+					<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
 					<f:selectItems value="#{projetoMBean.lista}" var="projeto"
 						itemValue="#{projeto.id}" itemLabel="#{projeto.nome}" />
 						<p:ajax event="change" listener="#{tarefaMBean.atualizaProjeto}"
 						 />
 				</p:selectOneMenu>
+				
+				<p:commandButton action="#{tarefaMBean.gravar}" value="Gravar"
+					icon="pi pi-plus" update="selecionaProjeto msgs formCadastroProjeto" styleClass="ui-button-success"/>
+				</div>
 			</p:fieldset>
 			</h:form>
 		

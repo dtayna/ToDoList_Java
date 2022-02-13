@@ -16,7 +16,7 @@ public class SessionMBean implements Serializable {
 	
 	private static Usuario usuario = null;
 
-	public Usuario getSession() {
+	public static Usuario getSession() {
 		return usuario;
 	}
 
@@ -24,7 +24,7 @@ public class SessionMBean implements Serializable {
 		SessionMBean.usuario = usuario;
 	}
 	
-	public void destroySession() {
+	public static void destroySession() {
 		SessionMBean.usuario = null;
 	}
 }
