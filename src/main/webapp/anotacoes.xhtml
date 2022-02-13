@@ -13,6 +13,7 @@
 	<style type="text/css">
 		button.ui-button {
 			margin-right: .5rem;
+			margin-bottom: .5rem;
 		}
 	</style>
 </h:head>
@@ -64,18 +65,18 @@
 				<h:form id="formTabelaAnotacao">
 
 			<p:dataTable value="#{anotacaoMBean.lista}" var="anotacao"
-				id="tabelaAnotacao">
-				<p:column headerText="ID">
-					<h:outputText value="#{anotacao.id}" />
-				</p:column>
-
+				id="tabelaAnotacao" responsive="true">
 
 				<p:column headerText="Título">
 					<h:outputText value="#{anotacao.titulo}" />
 				</p:column>
 				
-				<p:column headerText="Descrição">
+				<p:column headerText="Descrição" responsivePriority="1">
 					<h:outputText value="#{anotacao.descricao}" />
+				</p:column>
+				
+				<p:column headerText="Data">
+					<h:outputText value="#{anotacao.data}" />
 				</p:column>
 
 				<p:column headerText="Opções">
