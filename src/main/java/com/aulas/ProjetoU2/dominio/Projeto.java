@@ -31,7 +31,7 @@ public class Projeto implements Serializable{
 		@Column(length = 40, nullable = false)
 		private String nome;
 		
-		@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+		/*@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 		@JoinColumn(name = "id")
 		private Set<Tarefa> tarefas;
 
@@ -42,7 +42,7 @@ public class Projeto implements Serializable{
 		public void setTarefas(Set<Tarefa> tarefas) {
 			this.tarefas = tarefas;
 		}
-
+*/
 		public Projeto(String nome) {
 			super();
 			this.nome = nome;

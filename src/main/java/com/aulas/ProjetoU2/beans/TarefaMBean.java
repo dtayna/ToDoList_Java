@@ -89,13 +89,12 @@ public class TarefaMBean implements Serializable {
 				break;
 			}
 		}
-
-//		for (Projeto p : projetoDAO.listar()) {
-//			if (p.getId() == projetoId) {
-//				this.tarefa.setProjeto(p);
-//				break;
-//			}
-//		}
+		for (Projeto p : projetoDAO.listar()) {
+		if (p.getId() == projetoId) {
+			this.tarefa.setProjeto(p);
+				break;
+			}
+		}
 		tarefa.setUsuario(SessionMBean.getSession());
 
 		if(this.tarefa.getId() == null) {
@@ -112,7 +111,7 @@ public class TarefaMBean implements Serializable {
 		this.tarefa = tarefa;
 	}
 	
-	public List<Tarefa> listar() throws ProjetoU2Exception {
+	public List<Tarefa> getLista() throws ProjetoU2Exception {
 		return this.tarefaDAO.listar();
 	}
 	public void apagar(Tarefa tarefa) throws ProjetoU2Exception {
@@ -120,6 +119,7 @@ public class TarefaMBean implements Serializable {
 	}
 	public void atualizaProjeto(AjaxBehaviorEvent e) throws ProjetoU2Exception {
 		this.projeto = projetoDAO.buscarId(projetoId);
+		System.out.println(projetoId);
 		System.out.println(this.getProjeto());
 	}
 	public Integer getResponsavelId() {
