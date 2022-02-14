@@ -117,8 +117,10 @@
 					</p:inputText>
 					<!--  <p:message for="nome" id="msgNome"/>-->
 					
+					<div>
 		<p:commandButton action="#{projetoMBean.gravar}" value="Gravar"
 			icon="pi pi-plus" update="formCadastroTarefa selecionaProjeto msgs formCadastroProjeto" styleClass="ui-button-success"/>
+					</div>
 			
 			
 			</p:fieldset>
@@ -143,7 +145,7 @@
 					<h:outputText value="#{tarefa.responsavel.nome}" />
 				</p:column>
 				
-				<p:column headerText="E-mail">
+				<p:column headerText="Prazo">
 					<h:outputText value="#{tarefa.prazo}" />
 				</p:column>
 
@@ -185,7 +187,7 @@
 					<h:outputText value="#{tarefa.responsavel.nome}" />
 				</p:column>
 				
-				<p:column headerText="E-mail">
+				<p:column headerText="Prazo">
 					<h:outputText value="#{tarefa.prazo}" />
 				</p:column>
 

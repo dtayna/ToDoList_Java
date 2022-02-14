@@ -75,13 +75,11 @@ public class TarefaMBean implements Serializable {
 	
 	public void desativafiltro() throws ProjetoU2Exception {
 		this.filtro = false;
-		System.out.println("Desativou:" +filtro);
 	}
 	
 	public void atualizaProjetoFiltro(AjaxBehaviorEvent e) throws ProjetoU2Exception {
 		
 		this.projetof = projetoDAO.buscarId(projetofiltro);
-		System.out.println("Vai atualizar filtro" + projetof.getId());
 	}
 	
 	public Integer getProjetoId() {
@@ -164,6 +162,7 @@ public class TarefaMBean implements Serializable {
 	}
 	public void apagar(Tarefa tarefa) throws ProjetoU2Exception {
 		tarefaDAO.excluir(tarefa);
+		this.tarefa.setId(null);
 	}
 	public void atualizaProjeto(AjaxBehaviorEvent e) throws ProjetoU2Exception {
 		this.projeto = projetoDAO.buscarId(projetoId);
@@ -187,10 +186,6 @@ public class TarefaMBean implements Serializable {
 	public List<Projeto> getListaClientes() throws ProjetoU2Exception {
 		return projetoDAO.listar();
 	}
-	
-	//public void carregar() throws ProjetoU2Exception {
-		//this.projetoId = this.tarefa.getProjeto().getId();
-	//}
 	
 	public List<Tarefa> listaTarefasPendentes() throws ProjetoU2Exception {
 		

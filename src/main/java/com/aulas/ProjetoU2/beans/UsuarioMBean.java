@@ -44,7 +44,7 @@ public class UsuarioMBean implements Serializable{
 			usuarioDAO.atualizar(this.usuario);
 		}
 		usuario = new Usuario();
-		return "login"; 
+		return ""; 
 	}
 	
 	public String logar() throws ProjetoU2Exception {

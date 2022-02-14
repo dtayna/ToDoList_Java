@@ -46,11 +46,12 @@ button {
 </style>
 </h:head>
 
+<h:body style="background-color:#190033;">
 <p:card class="card-cadastro">
 	<f:facet name="title">
 		<h3>Cadastre uma nova conta</h3>
 	</f:facet>
-	<h:form>
+	<h:form id="cadastro1">
 		<div class="ui-fluid">
 			<div class="p-field">
 				<span class="ui-float-label"> 
@@ -89,10 +90,11 @@ button {
 		<div class="footer">
 			<p:link outcome="login" value="Já fez o cadastro?" />
 
-			<p:commandButton action="#{usuarioMBean.gravar}" value="Cadastrar"
+			<p:commandButton update="cadastro1" action="#{usuarioMBean.gravar}" value="Cadastrar"
 				icon="pi pi-check" iconPos="right" />
 
 		</div>
 	</f:facet>
 </p:card>
+</h:body>
 </html>
