@@ -50,6 +50,16 @@
 						<p:ajax event="blur" update="descricao msgDescricao msgs"/>
 					</p:inputTextarea>
 					<p:message for="descricao" id="msgDescricao"/>
+					
+					<p:outputLabel value="Tarefa: " for="anotaTarefa"/>
+					<p:selectOneMenu id="anotaTarefa" value="#{anotacaoMBean.tarefaId}" required="true">
+					<p:ajax event="change" listener="#{anotacaoMBean.atualizaTarefa}"
+						 />
+					<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
+					<f:selectItems value="#{tarefaMBean.lista}" var="tarefa"
+						itemValue="#{tarefa.id}" itemLabel="#{tarefa.descricao}" />
+						
+					</p:selectOneMenu>
 				
 				</h:panelGrid>
 			<br />
@@ -66,6 +76,9 @@
 
 			<p:dataTable value="#{anotacaoMBean.lista}" var="anotacao"
 				id="tabelaAnotacao" responsive="true">
+				<p:column headerText="Tarefa">
+					<h:outputText value="#{anotacao.tarefa.descricao}" />
+				</p:column>
 
 				<p:column headerText="Título">
 					<h:outputText value="#{anotacao.titulo}" />
